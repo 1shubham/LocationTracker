@@ -1,7 +1,12 @@
-﻿using Android.App;
+﻿using System.Linq;
+using Android.App;
+using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using LocationTracker.Core;
 using Microsoft.Azure.Mobile;
+using Microsoft.Azure.Mobile.Analytics;
+using Plugin.Permissions;
 using Xamarin.Forms.Platform.Android;
 
 namespace LocationTracker.Droid
@@ -14,9 +19,19 @@ namespace LocationTracker.Droid
             base.OnCreate(bundle);
             
             Xamarin.Forms.Forms.Init(this, bundle);
+            MobileServicesManager.SafeInit();
 
-            MobileCenter.Configure("b19a97d0-8336-48cb-8e95-6269359dcf44");
             LoadApplication(new App());
+            
+            if (!PersistentLocationTrackingService.IsRunning(ApplicationContext))
+                StartService(new Intent(ApplicationContext, typeof(PersistentLocationTrackingService)));
+
+            Analytics.TrackEvent("Created MainActivity");
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
