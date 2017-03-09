@@ -18,12 +18,27 @@ namespace LocationTracker.Core
         {
             InitializeComponent();
             MobileCenter.Start(typeof(Analytics), typeof(Crashes));
-            MainPage = new ContentPage() {Content = new Label {Text = "Testing..."}};
-        }
-
-        protected override void OnStart()
-        {
-            base.OnStart();
+            MainPage = new ContentPage()
+            {
+                Content = new StackLayout()
+                {
+                    Padding = new Thickness(40),
+                    Children =
+                    {
+                        new Label
+                        {
+                            Text =
+                                "This is a simple application designed to track user location every fifteen minutes. You're not required to do anything here :)",
+                            FontSize = 20,
+                            FontAttributes = FontAttributes.Bold,
+                            HorizontalTextAlignment = TextAlignment.Center,
+                            VerticalTextAlignment = TextAlignment.Center,
+                            HorizontalOptions = LayoutOptions.CenterAndExpand,
+                            VerticalOptions = LayoutOptions.CenterAndExpand
+                        }
+                    }
+                }
+            };
         }
     }
 }
