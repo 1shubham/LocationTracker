@@ -62,7 +62,7 @@ namespace LocationTracker.Droid
                     ["intent.Extras"] = String(CreateDictionary(intent.Extras))
                 });
 
-            _timer = new Timer(TrackAndReportLocation, null, 0, 60000);
+            _timer = new Timer(TrackAndReportLocation, null, 0, 900000);
 
             return StartCommandResult.RedeliverIntent;
         }
